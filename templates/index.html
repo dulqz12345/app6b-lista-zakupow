@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <form action="{{ url_for('add') }}" method="POST" class="form-inline my-3">
+        <input type="text" name="item" class="form-control mr-2" placeholder="Dodaj przedmiot" required>
+        <button type="submit" class="btn btn-primary">Dodaj</button>
+    </form>
+    
+    <ul class="list-group">
+        {% for item in shopping_list %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ item.name }}
+                <form action="{{ url_for('delete', item_id=item.id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Usuń</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
