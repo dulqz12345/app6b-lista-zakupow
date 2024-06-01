@@ -1,4 +1,5 @@
-from app import db
+from db import db
+
 
 class ShoppingItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)

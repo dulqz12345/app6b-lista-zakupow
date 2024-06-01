@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
-from flask_sqlalchemy import SQLAlchemy
+from db import db
+from models import ShoppingItem
 
 app = Flask(__name__)
 
@@ -7,10 +8,12 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///shopping_list.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
+db.init_app(app)
 
-# Import modeli
-from models import ShoppingItem
+
+@app.before_first_request
+def create_tables():
+    db.create_all()
 
 
 @app.route('/')
